@@ -1,0 +1,6 @@
+# file: roles/crowley.cloud/handlers/main.yml
+---
+# For example,
+#
+- name: restart nginx
+  service: name=nginx state=restarted

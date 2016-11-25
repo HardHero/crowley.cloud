@@ -1,0 +1,24 @@
+# file: roles/crowley.cloud/vars/main.yml
+---
+  git_link: 'git@github.com:HardHero/crowley-cv.git'
+  github_key_name: crowley.cloud.github
+  download_dir: ~/crowley
+  ssh_dir: ~
+  crowley_cloud_html_dir: /var/www/crowley.cloud/html
+  nginx_user: www-data
+  nginx_remove_default_vhost: true
+  nginx_vhosts_filename: "crowley.cloud.conf"
+  nginx_server_names_hash_bucket_size: "128"
+  nginx_vhosts:
+  - listen: "80 default_server"
+    server_name: "crowley.cloud"
+    root: "/var/www/crowley.cloud/html"
+    index: "index.php index.html index.htm"
+    extra_parameters: |
+      location ~ \.php$ {
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
+          fastcgi_pass unix:/var/run/php5-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          include fastcgi_params;
+      }
