@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - secrets.yml
+    - host_vars/main.yml
+  tasks:
+    - name: get latest Ubuntu 16 ami
+      ec2_ami_find:
+        name: ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server*
+        sort: name
+        region: us-east-1
+        sort_order: descending
+        sort_end: 1
+      register: ami_find
+    - name: create IAM role for s3 access for instance
+      iam_policy:
+        iam_type: role
+        iam_name: crowley.cloud.s3
+        policy_name: crowley.cloud.s3
+        state: present
+        policy_document: s3_admin.json
+    - name: create crowley.cloud with Ubuntu
+      ec2:
+        key_name: crowley.cloud
+        instance_profile_name: 'crowley.cloud.s3'
+        group: crowley.cloud
+        region: us-east-1
+        instance_type: t2.micro
+        image: "{{ ami_find.results[0].ami_id }}"
+        wait: true
+        instance_tags:
+          Name: crowley.cloud
+          build_type: ansible
+      register: ec2
+    - name: associate an elastic IP with an instance
+      ec2_eip:
+        reuse_existing_ip_allowed: yes
+        state: present
+        region: us-east-1
+        in_vpc: true
+        device_id: "{{ec2.instance_ids[0]}}"
+        ip: "{{elastic_ip}}"

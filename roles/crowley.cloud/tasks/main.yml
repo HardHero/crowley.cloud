@@ -1,30 +1,30 @@
 # file: roles/crowley.cloud/tasks/main.yml
 ---
-  - name: Install packages(git,curl)
-    apt: name={{item}} state=present
-    with_items:
-      - curl
-      - git
-  - name: Adding boto
-    pip: name=boto state=present
-  - name: Copy github keys from s3
-    s3: bucket=crowley.cloud object={{github_key_name}} dest={{ssh_dir}}/{{github_key_name}} mode=get
-  - name: change permissions on github key
-    file: path={{ssh_dir}}/{{github_key_name}} mode=700
-  - name: clone git repo
-    git: repo={{git_link}}
-         dest={{download_dir}}
-         accept_hostkey=yes
-         force=yes
-         key_file={{ssh_dir}}/{{github_key_name}}
-         recursive=yes
-  - name: create crowley.cloud html directory
-    file: name={{crowley_cloud_html_dir}} state=directory owner={{nginx_user}} group=www-data
-  - name: cp css from git repo to /var/www
-    shell: "cp {{download_dir}}/resume/*.css {{crowley_cloud_html_dir}}"
-  - name: cp index.html from git repo to /var/www
-    shell: "cp {{download_dir}}/resume/index.html {{crowley_cloud_html_dir}}"
-  - name: restart nginx
-    service: name=nginx state=restarted
-  - name: add healthcheck.html
-    template: src=templates/healthcheck.html.j2 dest={{crowley_cloud_html_dir}}/healthcheck.html owner={{nginx_user}} group=www-data mode=0644
+- name: Install packages(git,curl)
+  apt: name={{item}} state=present
+  with_items:
+    - curl
+    - git
+- name: Adding boto
+  pip: name=boto state=present
+- name: Copy github keys from s3
+  s3: bucket=crowley.cloud object={{github_key_name}} dest={{ssh_dir}}/{{github_key_name}} mode=get
+- name: change permissions on github key
+  file: path={{ssh_dir}}/{{github_key_name}} mode=700
+- name: clone git repo
+  git: repo={{git_link}}
+       dest={{download_dir}}
+       accept_hostkey=yes
+       force=yes
+       key_file={{ssh_dir}}/{{github_key_name}}
+       recursive=yes
+- name: create crowley.cloud html directory
+  file: name={{crowley_cloud_html_dir}} state=directory owner={{nginx_user}} group=www-data
+- name: cp css from git repo to /var/www
+  shell: "cp {{download_dir}}/resume/*.css {{crowley_cloud_html_dir}}"
+- name: cp index.html from git repo to /var/www
+  shell: "cp {{download_dir}}/resume/index.html {{crowley_cloud_html_dir}}"
+- name: restart nginx
+  service: name=nginx state=restarted
+- name: add healthcheck.html
+  template: src=templates/healthcheck.html.j2 dest={{crowley_cloud_html_dir}}/healthcheck.html owner={{nginx_user}} group=www-data mode=0644

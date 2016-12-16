@@ -3,11 +3,7 @@
 - hosts: crowley.cloud
   become: yes
   roles:
-    - geerlingguy.nginx
-    - geerlingguy.git
-    - kbrebanov.pip
     - roles/crowley.cloud
-    - geerlingguy.letsencrypt
   tasks:
     - name: Setup cron job for auto cert renewal
       cron: name="Renew ssl cert from letsencrypt" weekday=0 job='/opt/certbot/certbot-auto renew --quiet --no-self-upgrade'
