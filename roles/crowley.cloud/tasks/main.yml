@@ -5,9 +5,7 @@
   with_items:
     - curl
     - git
-- name: Adding boto
-  pip: name=boto state=present
-- name: Copy github keys from local
+- name: Copy github key from local
   authorized_key:
     user: ubuntu
     state: present
