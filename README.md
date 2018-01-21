@@ -20,5 +20,6 @@ NOTE: Cert will renew every week on Sunday
 
 
 #Future work
+Figure out AWS credentials
 ELB
 Multiple web servers
