@@ -7,8 +7,11 @@
     - git
 - name: Adding boto
   pip: name=boto state=present
-- name: Copy github keys from s3
-  s3: bucket=crowley.cloud object={{github_key_name}} dest={{ssh_dir}}/{{github_key_name}} mode=get
+- name: Copy github keys from local
+  authorized_key:
+    user: ubuntu
+    state: present
+    key: "{{ lookup('file', '/Users/cheez/.ssh/hardhero-github-readonly') }}"
 - name: change permissions on github key
   file: path={{ssh_dir}}/{{github_key_name}} mode=700
 - name: clone git repo
@@ -19,12 +22,26 @@
        key_file={{ssh_dir}}/{{github_key_name}}
        recursive=yes
 - name: create crowley.cloud html directory
-  file: name={{crowley_cloud_html_dir}} state=directory owner={{nginx_user}} group=www-data
-- name: cp css from git repo to /var/www
-  shell: "cp {{download_dir}}/resume/*.css {{crowley_cloud_html_dir}}"
-- name: cp index.html from git repo to /var/www
-  shell: "cp {{download_dir}}/resume/index.html {{crowley_cloud_html_dir}}"
-- name: restart nginx
-  service: name=nginx state=restarted
+  file:
+    path: {{crowley_cloud_html_dir}}
+    state: directory
+    owner: {{nginx_user}}
+    group: www-data
+- name: copy crowley-cv files to html root
+  copy:
+    src: /srv/myfiles/foo.conf
+    dest: {{crowley_cloud_html_dir}}
+    owner: foo
+    group: foo
+    mode: 0644
+  with_fileglob:
+  - "{{download_dir}}/resume/*.css"
+  - "{{download_dir}}/resume/index.html"
+  notify: nginx restart
 - name: add healthcheck.html
-  template: src=templates/healthcheck.html.j2 dest={{crowley_cloud_html_dir}}/healthcheck.html owner={{nginx_user}} group=www-data mode=0644
+  template:
+    src: templates/healthcheck.html.j2
+    dest: "{{crowley_cloud_html_dir}}/healthcheck.html "
+    owner: "{{nginx_user}}"
+    group: www-data
+    mode: 0644
