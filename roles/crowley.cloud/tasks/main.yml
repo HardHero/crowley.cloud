@@ -5,39 +5,13 @@
   with_items:
     - curl
     - git
-- name: Copy github key from local
-  copy:
-    src: /Users/cheez/.ssh/hardhero-github-readonly
-    dest: "{{ssh_dir}}/{{github_key_name}}"
-    mode: 0644
-- name: change permissions on github key
-  file:
-    path: "{{ssh_dir}}/{{github_key_name}}"
-    mode: 0700
-- name: clone git repo
-  git:
-    repo: "{{git_link}}"
-    dest: "{{download_dir}}"
-    accept_hostkey: yes
-    force: yes
-    key_file: "{{ssh_dir}}/{{github_key_name}}"
-    recursive: yes
 - name: create crowley.cloud html directory
   file:
     path: "{{crowley_cloud_html_dir}}"
     state: directory
     owner: "{{nginx_user}}"
     group: www-data
-- name: create crowley.cloud html directory
-  file:
-    name: "{{crowley_cloud_html_dir}}"
-    state: directory
-    owner: "{{nginx_user}}"
-    group: www-data
-- name: cp css from git repo to /var/www
-  shell: "cp {{download_dir}}/*.css {{crowley_cloud_html_dir}}"
-- name: cp index.html from git repo to /var/www
-  shell: "cp {{download_dir}}/index.html {{crowley_cloud_html_dir}}"
+- import_tasks: cv.yml
 - name: add healthcheck.html
   template:
     src: templates/healthcheck.html.j2

@@ -1,0 +1,11 @@
+cd {{crowley_dir}}crowley-cv
+# Get my resume
+git pull origin master
+
+# Copy the right files
+cp *.css {{crowley_cloud_html_dir}}
+
+cp index.html {{crowley_cloud_html_dir}}
+
+# Reload nginx for funsies
+sudo nginx -s reload

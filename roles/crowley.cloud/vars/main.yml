@@ -4,7 +4,7 @@
   github_key_name: crowley.cloud.github
   ssh_dir: ~/.ssh
   crowley_cloud_html_dir: /var/www/crowley.cloud/html
-  download_dir: "{{crowley_cloud_html_dir}}/crowley.cloud/"
+  crowley_dir: /opt/crowley/
   nginx_user: www-data
   nginx_remove_default_vhost: true
   nginx_vhosts_filename: "crowley.cloud.conf"
