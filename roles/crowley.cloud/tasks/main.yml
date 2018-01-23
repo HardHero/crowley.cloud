@@ -6,36 +6,38 @@
     - curl
     - git
 - name: Copy github key from local
-  authorized_key:
-    user: ubuntu
-    state: present
-    key: "{{ lookup('file', '/Users/cheez/.ssh/hardhero-github-readonly') }}"
+  copy:
+    src: /Users/cheez/.ssh/hardhero-github-readonly
+    dest: "{{ssh_dir}}/{{github_key_name}}"
+    mode: 0644
 - name: change permissions on github key
-  file: path={{ssh_dir}}/{{github_key_name}} mode=700
+  file:
+    path: "{{ssh_dir}}/{{github_key_name}}"
+    mode: 0700
 - name: clone git repo
-  git: repo={{git_link}}
-       dest={{download_dir}}
-       accept_hostkey=yes
-       force=yes
-       key_file={{ssh_dir}}/{{github_key_name}}
-       recursive=yes
+  git:
+    repo: "{{git_link}}"
+    dest: "{{download_dir}}"
+    accept_hostkey: yes
+    force: yes
+    key_file: "{{ssh_dir}}/{{github_key_name}}"
+    recursive: yes
 - name: create crowley.cloud html directory
   file:
-    path: {{crowley_cloud_html_dir}}
+    path: "{{crowley_cloud_html_dir}}"
     state: directory
-    owner: {{nginx_user}}
+    owner: "{{nginx_user}}"
     group: www-data
-- name: copy crowley-cv files to html root
-  copy:
-    src: /srv/myfiles/foo.conf
-    dest: {{crowley_cloud_html_dir}}
-    owner: foo
-    group: foo
-    mode: 0644
-  with_fileglob:
-  - "{{download_dir}}/resume/*.css"
-  - "{{download_dir}}/resume/index.html"
-  notify: nginx restart
+- name: create crowley.cloud html directory
+  file:
+    name: "{{crowley_cloud_html_dir}}"
+    state: directory
+    owner: "{{nginx_user}}"
+    group: www-data
+- name: cp css from git repo to /var/www
+  shell: "cp {{download_dir}}/*.css {{crowley_cloud_html_dir}}"
+- name: cp index.html from git repo to /var/www
+  shell: "cp {{download_dir}}/index.html {{crowley_cloud_html_dir}}"
 - name: add healthcheck.html
   template:
     src: templates/healthcheck.html.j2

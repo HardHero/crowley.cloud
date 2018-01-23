@@ -1,5 +1,5 @@
 secrets.yml
 .vault_pass
-*.retry
+*.retry 
 .kitchen/
 .kitchen.local.yml
