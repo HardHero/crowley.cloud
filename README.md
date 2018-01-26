@@ -20,3 +20,6 @@ Ansible copy is not working correctly so running those copy command manually. Se
 
 # Future work
 Certbot playbook
+Figure out AWS credentials
+ELB
+Multiple web servers
