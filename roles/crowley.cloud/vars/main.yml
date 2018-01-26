@@ -2,9 +2,9 @@
 ---
   git_link: 'git@github.com:HardHero/crowley-cv.git'
   github_key_name: crowley.cloud.github
-  download_dir: ~/crowley
-  ssh_dir: ~
+  ssh_dir: ~/.ssh
   crowley_cloud_html_dir: /var/www/crowley.cloud/html
+  crowley_dir: /opt/crowley/
   nginx_user: www-data
   nginx_remove_default_vhost: true
   nginx_vhosts_filename: "crowley.cloud.conf"

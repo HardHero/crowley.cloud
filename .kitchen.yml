@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+  use_sudo: false
+
+provisioner:
+  name: ansible_playbook
+  roles_path: ./roles
+  hosts: localhost
+  require_ansible_repo: true
+  ansible_verbose: true
+  ansible_version: latest
+  playbook: site.yml
+  ansible_vault_password_file: .vault_pass
+  require_chef_for_busser: false
+  additional_ssh_private_keys:
+  - ~/.ssh/hardhero-github
+
+platforms:
+  - name: ubuntu-16.04
+    driver_config:
+      provision_command:
+        - apt-get install python -y
+        - apt-get install ansible -y
+suites:
+  - name: default
+
+    run_list:
+    attributes:
+transport:
+  max_ssh_sessions: 6

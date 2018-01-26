@@ -1,2 +1,8 @@
 .vault_pass
 *.retry
+.kitchen/
+.kitchen.local.yml
+.librarian/
+*.lock
+tmp/
+Gemfile.lock
