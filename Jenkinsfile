@@ -8,7 +8,7 @@ pipeline {
         }
         stage('deploy stack'){
             environment{
-                AWS_REGION: 'us-east-1'
+                AWS_REGION = 'us-east-1'
             }
             steps{
                 sh('aws s3 ls')
