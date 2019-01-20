@@ -4,6 +4,11 @@ pipeline {
         stage('deploy stack'){
             steps{
                 shell('aws s3 ls')
+            }
+        }
+        stage('deploy stack'){
+            steps{
+                shell('aws s3 ls')
                 cfnUpdate(
                     stack:'crowleycloud', 
                     file:'crowleycloud.yml'
