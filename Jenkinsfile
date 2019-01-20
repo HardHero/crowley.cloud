@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('deploy stack'){
+        stage('q'){
             steps{
                 shell('aws s3 ls')
             }
