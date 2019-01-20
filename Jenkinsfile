@@ -13,10 +13,9 @@ pipeline {
 
 
         stage('update bucket'){
+            def bucket_name = cfnDescribe(stack: 'crowleycloud')
             steps{
-                bucket_name=cfnDescribe(
-                    stack: 'crowleycloud'
-                )
+                
                 print bucket_name
             }
         }
