@@ -8,7 +8,7 @@ pipeline {
         }
         stage('deploy stack'){
             steps{
-                withAWS(region:'us-east-1', profile='default') {
+                withAWS(region:'us-east-1', profile:'default') {
                     cfnUpdate(
                         stack:'crowleycloud', 
                         file:'crowleycloud.yml'
