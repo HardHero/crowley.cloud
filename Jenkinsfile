@@ -13,10 +13,11 @@ pipeline {
 
 
         stage('update bucket'){
-            def bucket_name = cfnDescribe(stack: 'crowleycloud')
+            environment { 
+                CC = cfnDescribe(stack: 'crowleycloud')
+            }
             steps{
-                
-                print bucket_name
+                print CC
             }
         }
 
