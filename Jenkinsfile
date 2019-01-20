@@ -7,15 +7,14 @@ pipeline {
             }
         }
         stage('deploy stack'){
-            environment{
-                AWS_REGION = 'us-east-1'
-            }
             steps{
-                sh('aws s3 ls')
-                cfnUpdate(
-                    stack:'crowleycloud', 
-                    file:'crowleycloud.yml'
-                )
+                withAWS(region:'us-east-1', profile='default') {
+                    cfnUpdate(
+                        stack:'crowleycloud', 
+                        file:'crowleycloud.yml'
+                    )
+                }
+
             }
         }
 
