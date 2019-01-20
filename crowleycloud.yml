@@ -4,7 +4,7 @@ Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-04b8c2001b0bf0c27
+      ImageId: ami-00e744be929837e6e
       InstanceType: t2.micro
       KeyName: crowley.cloud
       IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
@@ -14,7 +14,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow http/https to client host
-      VpcId: "vpc-c7ff8ea3"
+      VpcId: vpc-c7ff8ea3
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
