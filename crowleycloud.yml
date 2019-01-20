@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Crowley.cloud Cloudformation Template
+Resources:
+  crowleycloud:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-00e744be929837e6e
+      InstanceType: t2.micro
+      KeyName: crowley.cloud
+      IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
+      SecurityGroupIds: 
+        - !GetAtt crowleycloudsecuritygroup.GroupId
+  crowleycloudsecuritygroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http/https to client host
+      VpcId: vpc-c7ff8ea3
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  crowleycloudEIPAssociation:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      EIP: "34.193.75.126"
+      InstanceId: !Ref crowleycloud
+  crowleycloudiaminstanceprofile:
+    DependsOn: crowleycloudrole
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      Path: "/"
+      Roles:
+        - !Ref crowleycloudrole
+  crowleycloudrole: 
+    Type: "AWS::IAM::Role"
+    Properties: 
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              Service: 
+                - "ec2.amazonaws.com"
+                - "s3.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Path: "/"
+  crowleycloudpolicy: 
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "crowleycloudpolicy"
+      PolicyDocument:    
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Action: "s3:*"
+            Resource: !GetAtt crowleycloudbucket.Arn
+      Roles: 
+        - !Ref crowleycloudrole
+  crowleycloudbucket:
+    Type: AWS::S3::Bucket

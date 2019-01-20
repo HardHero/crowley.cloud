@@ -1,17 +1,17 @@
 # crowley.cloud
-This playbook is for my personal website.
 
-# System Requirements
-1.  Ubunutu 16.XX
-2.  Install python `apt-get install python`
-3.  On your `from` macheine, you need at least boto 2.5
-        pip install boto==2.5.2
-4.  Install additional roles on `from` machine
-        ansible-galaxy install geerlingguy.nginx geerlingguy.git geerlingguy.certbot kbrebanov.pip
+This playbook is for my personal web server.
+
+# Building the Server
+
+First Time
+aws cloudformation create-stack --stack-name crowley-cloud --template-body file://crowleycloud.yml --capabilities CAPABILITY_NAMED_IAM
+
+Update
+aws cloudformation update-stack --stack-name crowley-cloud --template-body file://crowleycloud.yml --capabilities CAPABILITY_NAMED_IAM
 
 # Usage
 1.  Change `hosts` to match server
-2.  Run playboook `ansible-playbook aws-infrastructure.yml -i hosts --vault-password-file .vault_pass`
 2.  Run playboook `ansible-playbook site.yml -i hosts`
 3. Do this because I can't automate it: https://certbot.eff.org/#ubuntuxenial-nginx
 

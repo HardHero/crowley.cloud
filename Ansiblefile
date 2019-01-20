@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-#^syntax detection
-
-site "https://galaxy.ansible.com/api/v1"
-
-role "geerlingguy.nginx"
-role "geerlingguy.git"
-role "kbrebanov.pip"
-role "thefinn93.letsencrypt"

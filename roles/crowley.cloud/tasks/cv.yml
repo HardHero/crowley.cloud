@@ -1,42 +1,6 @@
 ---
-- name: create .ssh directory
-  file:
-    path: "{{ssh_dir}}"
-    state: directory
-    mode: 0600
-- name: Copy github key from local
-  copy:
-    src: /Users/cheez/.ssh/hardhero-github-readonly
-    dest: "{{ssh_dir}}/{{github_key_name}}"
-- name: change permissions on github key
-  file:
-    path: "{{ssh_dir}}/{{github_key_name}}"
-    mode: 0400
-- name: create /opt/crowley/
-  file:
-    path: "{{crowley_dir}}"
-    state: directory
-    mode: 0755
-- name: clone git repo
-  git:
-    repo: "{{git_link}}"
-    dest: "{{crowley_dir}}/crowley-cv"
-    accept_hostkey: yes
-    force: yes
-    key_file: "{{ssh_dir}}/{{github_key_name}}"
-    recursive: yes
-- name: add ssh config for andrew user
-  template:
-    src: templates/config.j2
-    dest: "{{ssh_dir}}/config"
-    mode: 0600
-- name: template for cv cron
-  template:
-    src: templates/git_cv.sh.j2
-    dest: "{{crowley_dir}}git_cv.sh"
-    mode: 0664
-- name: cron for cv
+- name: Create cron for s3 pull
   cron:
-    name: "fetch cv"
-    minute: 5
-    job: "sudo bash {{crowley_dir}}git_cv.sh"
+    name: Pull from s3
+    job: aws s3 sync s3://crowley.cloud/* "{{crowley_cloud_html_dir}}" --recursive   
+    minute: 1/10

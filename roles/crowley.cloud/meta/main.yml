@@ -1,6 +1,6 @@
 # file: roles/crowley.cloud/meta/main.yml
 ---
 dependencies:
-- {role: geerlingguy.nginx}
+- {role: nginxinc.nginx}
 - {role: geerlingguy.git}
-- {role: kbrebanov.pip}
+- {role: geerlingguy.pip}

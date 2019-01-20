@@ -4,6 +4,3 @@
   become: yes
   roles:
     - roles/crowley.cloud
-  tasks:
-    - name: Setup cron job for auto cert renewal
-      cron: name="Renew ssl cert from letsencrypt" weekday=0 job='/opt/certbot/certbot-auto renew --quiet --no-self-upgrade'
