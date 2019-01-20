@@ -16,10 +16,8 @@ aws cloudformation update-stack --stack-name crowley-cloud --template-body file:
 3. Do this because I can't automate it: https://certbot.eff.org/#ubuntuxenial-nginx
 
 ## Issues
-Ansible copy is not working correctly so running those copy command manually. Seems to be a problem with the lookups.
+
 
 # Future work
 Certbot playbook
-Figure out AWS credentials
 ELB
-Multiple web servers
