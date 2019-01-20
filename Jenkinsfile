@@ -11,7 +11,8 @@ pipeline {
                 withAWS(region:'us-east-1', profile:'default') {
                     cfnUpdate(
                         stack:'crowleycloud', 
-                        file:'crowleycloud.yml'
+                        file:'crowleycloud.yml',
+                        capabilities : ['CAPABILITY_NAMED_IAM']
                     )
                 }
 
