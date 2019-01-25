@@ -17,10 +17,9 @@ pipeline {
 
         stage('config server'){
             steps{
-                ansiblePlaybook(
-                    playbook: 'site.yml',
-                    inventory: 'hosts'
-                )
+                ansiblePlaybook('site.yml') {
+                    inventoryPath('hosts')
+                }
             }
         }
     }
