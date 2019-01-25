@@ -15,17 +15,6 @@ pipeline {
             }
         }
 
-
-
-        stage('update bucket'){
-            environment { 
-                CC = cfnDescribe(stack: 'crowleycloud')
-            }
-            steps{
-                print CC
-            }
-        }
-
         stage('config server'){
             steps{
                 ansiblePlaybook(
