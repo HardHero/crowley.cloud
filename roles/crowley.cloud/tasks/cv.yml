@@ -1,4 +1,11 @@
 ---
+- name:
+  template:
+    src: templates/crowley.cloud.conf.j2
+    dest: "{{crowley_cloud_html_dir}}/crowley.cloud.conf"
+    owner: nginx
+    group: nginx
+    mode: 0644
 - name: Create cron for s3 pull
   cron:
     name: Pull from s3

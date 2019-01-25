@@ -4,12 +4,17 @@ Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-00e744be929837e6e
+      ImageId: ami-012fd5eb46f56731f
       InstanceType: t2.micro
       KeyName: crowley.cloud
       IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
       SecurityGroupIds: 
         - !GetAtt crowleycloudsecuritygroup.GroupId
+      UserData:
+        Fn::Base64: !Sub |
+          #!bin/bash -xe
+          sudo apt update
+          sudo apt -y install python
   crowleycloudsecuritygroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -47,7 +52,6 @@ Resources:
       EIP: "34.193.75.126"
       InstanceId: !Ref crowleycloud
   crowleycloudiaminstanceprofile:
-    DependsOn: crowleycloudrole
     Type: AWS::IAM::InstanceProfile
     Properties: 
       Path: "/"
@@ -78,7 +82,9 @@ Resources:
           - 
             Effect: "Allow"
             Action: "s3:*"
-            Resource: !GetAtt crowleycloudbucket.Arn
+            Resource: 
+              - !GetAtt crowleycloudbucket.Arn
+              - !Join [ '/', [ !GetAtt crowleycloudbucket.Arn, '*' ] ]
       Roles: 
         - !Ref crowleycloudrole
   crowleycloudbucket:

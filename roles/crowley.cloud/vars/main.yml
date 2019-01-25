@@ -2,3 +2,7 @@
 ---
   crowley_cloud_html_dir: /var/www/crowley.cloud/html
   crowley_dir: /opt/crowley/
+  nginx_main_template:
+    template_file: crowley.cloud.conf.j2
+    conf_file_name: nginx.conf
+    user: root

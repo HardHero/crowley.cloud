@@ -8,12 +8,8 @@ pipeline {
         }
         stage('deploy stack'){
             steps{
-                withAWS(region:'us-east-1', profile:'default', capabilities: ['CAPABILITY_NAMED_IAM']) {
-                    cfnUpdate(
-                        stack:'crowleycloud', 
-                        file:'crowleycloud.yml',
-                        
-                    )
+                withAWS(region:'us-east-1', profile:'default') {
+                    cfnUpdate(stack:'crowley-cloud', file:'crowleycloud.yml')
                 }
 
             }
@@ -30,13 +26,13 @@ pipeline {
             }
         }
 
-        // stage('config server'){
-        //     steps{
-        //         ansiblePlaybook(
-        //             playbook: 'site.yml',
-        //             inventory: 'hosts'
-        //         )
-        //     }
-        // }
+        stage('config server'){
+            steps{
+                ansiblePlaybook(
+                    playbook: 'site.yml',
+                    inventory: 'hosts'
+                )
+            }
+        }
     }
 }
