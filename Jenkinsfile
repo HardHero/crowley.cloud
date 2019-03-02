@@ -10,8 +10,9 @@ pipeline {
             }
         }
         stage('Get web source'){
+            def outputs = cfnDescribe(stack:'crowley-cloud')
             steps{
-                def outputs = cfnDescribe(stack:'crowley-cloud')
+                
 
                 dir('repo'){
                     git(
