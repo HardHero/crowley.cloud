@@ -21,6 +21,7 @@ pipeline {
                 withAWS(region:'us-east-1', profile:'default') {
                     script{
                         env.ouput=cfnDescribe(stack:'crowley-cloud')
+                        print env.output
                     }     
                     s3Upload(file:'repo', bucket:'crowley-cloud', path:'')
                 }
