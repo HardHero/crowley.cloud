@@ -89,3 +89,5 @@ Resources:
         - !Ref crowleycloudrole
   crowleycloudbucket:
     Type: AWS::S3::Bucket
+    Properties:
+      BucketName: crowley.cloud
