@@ -19,7 +19,7 @@ pipeline {
                     )
                 }
                 withAWS(region:'us-east-1', profile:'default') {
-                    def ouput=cfnDescribe(stack:'crowley-cloud')
+                    ouput=cfnDescribe(stack:'crowley-cloud')
                     s3Upload(file:'repo', bucket:'crowley-cloud', path:'')
                 }
                 
