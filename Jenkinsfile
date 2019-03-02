@@ -10,10 +10,9 @@ pipeline {
             }
         }
         stage('Get web source'){
-            def outputs = cfnDescribe(stack:'crowley-cloud')
             steps{
-                
-
+                outputs = cfnDescribe(stack:'crowley-cloud')
+                print outputs
                 dir('repo'){
                     git(
                         url: 'https://github.com/HardHero/crowley-cv',
