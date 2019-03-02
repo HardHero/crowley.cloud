@@ -19,7 +19,7 @@ pipeline {
                     )
                 }
                 withAWS(region:'us-east-1', profile:'default') {
-                    s3Upload(file:'repo/*.html,repo/*.css', bucket:'crowley.cloud', path:'')
+                    s3Upload(file:'repo/**.html,repo/**.css', bucket:'crowley.cloud', path:'')
                 }
                 
             }
