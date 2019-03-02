@@ -16,7 +16,9 @@
 - name: add healthcheck.html
   template:
     src: templates/healthcheck.html.j2
-    dest: "{{crowley_cloud_html_dir}}/healthcheck.html "
+    dest: "{{crowley_cloud_html_dir}}/healthcheck.html"
     owner: nginx
     group: nginx
     mode: 0644
+- name: get that cv
+  import_tasks: 'cv.yml'

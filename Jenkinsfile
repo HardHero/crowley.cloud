@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('q'){
-            steps{
-                sh('aws s3 ls')
-            }
-        }
         stage('deploy stack'){
             steps{
                 withAWS(region:'us-east-1', profile:'default') {
@@ -14,7 +9,22 @@ pipeline {
 
             }
         }
+        stage('Get web source'){
+            steps{
+                def outputs = cfnDescribe(stack:'crowley-cloud')
 
+                dir('repo'){
+                    git(
+                        url: 'https://github.com/HardHero/crowley-cv',
+                        branch: 'master'
+                    )
+                }
+                withAWS(region:'us-east-1', profile:'default') {
+                    s3Upload(file:'repo', bucket:'crowley-cloud', path:'')
+                }
+                
+            }
+        }
         stage('config server'){
             steps{
                 ansiblePlaybook(
