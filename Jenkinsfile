@@ -11,8 +11,7 @@ pipeline {
         }
         stage('Get web source'){
             steps{
-                outputs = cfnDescribe(stack:'crowley-cloud')
-                print outputs
+                
                 dir('repo'){
                     git(
                         url: 'https://github.com/HardHero/crowley-cv',
@@ -20,6 +19,8 @@ pipeline {
                     )
                 }
                 withAWS(region:'us-east-1', profile:'default') {
+                    outputs = cfnDescribe(stack:'crowley-cloud')
+                    print outputs
                     s3Upload(file:'repo', bucket:'crowley-cloud', path:'')
                 }
                 
