@@ -10,7 +10,7 @@ pipeline {
                 withAWS(region:'us-east-1', profile:'default') {
                     cfnUpdate(
                         stack:'crowley-cloud', 
-                        file:'crowleycloud.yml' 
+                        file:'crowleycloud.yml', 
                         params:["ElasticIP=${ELASTIC_IP}"],
                     )
                 }
