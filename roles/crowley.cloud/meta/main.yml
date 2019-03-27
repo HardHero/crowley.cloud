@@ -1,7 +1,7 @@
 # file: roles/crowley.cloud/meta/main.yml
 ---
 dependencies:
+- {role: geerlingguy.certbot}
 - {role: nginxinc.nginx}
 - {role: geerlingguy.git}
 - {role: geerlingguy.pip}
-- {role: geerlingguy.certbot}
