@@ -28,7 +28,7 @@ pipeline {
                 ansiblePlaybook('site.yml'){
                     inventoryPath('hosts.ini')
                     extraVars {
-                        extraVar("DOMAIN", "${DOMAIN}", false),
+                        extraVar("DOMAIN", "${DOMAIN}", false)
                         extraVar("ELASTIC_IP", "${ELASTIC_IP}", true)
                     }
                 }
