@@ -26,7 +26,7 @@ pipeline {
                     )
                 }
                 dir('www'){
-                    sh 'cp -r repo/{*.css,*.html} ./'
+                    sh 'cp -r ../repo/{*.css,*.html} ./'
                 }
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
