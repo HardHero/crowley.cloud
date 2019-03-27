@@ -1,8 +1,8 @@
 pipeline {
     agent any
     parameters{
-        string(name:'ELASTIC_IP', default: '', description: 'An AWS Elastic IP')
-        string(name:'DOMAIN', default: 'crowley.cloud')
+        string(name:'ELASTIC_IP', defaultValue: '', description: 'An AWS Elastic IP')
+        string(name:'DOMAIN', defaultValue: 'crowley.cloud')
     }
     stages {
         stage('deploy stack'){
