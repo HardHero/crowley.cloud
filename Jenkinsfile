@@ -25,14 +25,13 @@ pipeline {
                         branch: 'master'
                     )
                 }
-                ansiblePlaybook(
-                    playbook: 'site.yml',
-                    inventory: 'hosts'
+                ansiblePlaybook('site.yml'){
+                    inventoryPath('hosts.ini')
                     extraVars {
-                        extraVar("DOMAIN", "${DOMAIN}", false)
+                        extraVar("DOMAIN", "${DOMAIN}", false),
                         extraVar("ELASTIC_IP", "${ELASTIC_IP}", true)
                     }
-                )
+                }
             }
         }
     }
