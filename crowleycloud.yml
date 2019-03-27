@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Crowley.cloud Cloudformation Template
+Parameters:
+  ElasticIP:
+    Description: ParameterDescription
+    Type: String
+    Default: ParameterDefault
 Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
@@ -49,7 +54,7 @@ Resources:
   crowleycloudEIPAssociation:
     Type: AWS::EC2::EIPAssociation
     Properties:
-      EIP: "34.193.75.126"
+      EIP: !Ref ElasticIP
       InstanceId: !Ref crowleycloud
   crowleycloudiaminstanceprofile:
     Type: AWS::IAM::InstanceProfile
