@@ -9,7 +9,7 @@ Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: 	ami-06d990a360d7a793c
+      ImageId: ami-06d990a360d7a793c
       InstanceType: t2.micro
       KeyName: crowley.cloud
       IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
