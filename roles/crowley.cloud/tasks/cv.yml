@@ -6,7 +6,7 @@
     owner: nginx
     group: nginx
     mode: 0644
-- name: Create cron for s3 pull
+- name: move web to server
   copy:
       dest: /var/www/html/crowley.cloud/html/
       src: www/
