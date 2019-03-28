@@ -9,7 +9,7 @@ Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-012fd5eb46f56731f
+      ImageId: ami-020a9a7369c26052b
       InstanceType: t2.micro
       KeyName: crowley.cloud
       IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
@@ -18,8 +18,8 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!bin/bash -xe
-          sudo apt update
-          sudo apt -y install python
+          sudo apt-get update
+          sudo apt-get -y install python
   crowleycloudsecuritygroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
