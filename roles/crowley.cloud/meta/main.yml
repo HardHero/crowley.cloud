@@ -4,4 +4,4 @@ dependencies:
 - {role: nginxinc.nginx}
 - {role: geerlingguy.git}
 - {role: geerlingguy.pip}
-- {role: coopdevs.certbot_nginx}
+- {role: geerlingguy.certbot}

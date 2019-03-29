@@ -1,7 +1,7 @@
 # file: roles/crowley.cloud/tasks/main.yml
 ---
 - name: Install packages(git,curl)
-  apt:
+  package:
     name: ['curl', 'git', 'language-pack-en', 'awscli']
     state: present
 - name: Install boto for s3 sync
