@@ -9,6 +9,6 @@
     certbot_certs: []
     - email: andrewcr330@gmail.com
       domains:
-      - crowley.cloud
+        - crowley.cloud
   roles:
     - roles/crowley.cloud
