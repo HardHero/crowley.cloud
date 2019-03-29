@@ -17,7 +17,7 @@ Resources:
         - !GetAtt crowleycloudsecuritygroup.GroupId
       UserData:
         !Base64 |
-          #!bin/bash -xe
+          #!bin/bash -x
           sudo apt-get update
           sudo apt-get -y install python
   crowleycloudsecuritygroup:
