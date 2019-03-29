@@ -2,7 +2,7 @@
 ---
 - name: Install packages(git,curl)
   package:
-    name: ['curl', 'git', 'awscli']
+    name: ['curl', 'git', 'awscli', 'vim']
     state: present
 - name: Install boto for s3 sync
   pip:
