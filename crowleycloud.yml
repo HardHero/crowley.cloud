@@ -18,7 +18,7 @@ Resources:
       UserData:
         !Base64 |
           #!bin/bash -x
-          sudo yum update
+          sudo yum -y update
           sudo yum -y install python
   crowleycloudsecuritygroup:
     Type: AWS::EC2::SecurityGroup
