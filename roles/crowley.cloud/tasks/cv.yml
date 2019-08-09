@@ -9,5 +9,5 @@
 - name: move web to server
   copy:
       dest: /var/www/html/crowley.cloud/html/
-      src: www/
+      src: files/www/
       

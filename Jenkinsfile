@@ -19,15 +19,6 @@ pipeline {
         }
         stage('config server'){
             steps{
-                dir('repo'){
-                    git(
-                        url: 'https://github.com/HardHero/crowley-cv',
-                        branch: 'master'
-                    )
-                }
-                dir('www'){
-                    sh 'cp -r ../repo/{*.css,*.html} ./'
-                }
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
                     playbook: 'site.yml',
