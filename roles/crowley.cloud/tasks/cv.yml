@@ -1,6 +1,13 @@
 ---
-- name: Create cron for s3 pull
-  cron:
-    name: Pull from s3
-    job: aws s3 sync s3://crowley.cloud/* "{{crowley_cloud_html_dir}}" --recursive   
-    minute: 1/10
+- name: Add conf
+  template:
+    src: templates/crowley.cloud.conf.j2
+    dest: "/etc/nginx/conf.d/crowley.cloud.conf"
+    owner: nginx
+    group: nginx
+    mode: 0644
+- name: move web to server
+  copy:
+      dest: /var/www/html/crowley.cloud/html/
+      src: files/www/
+      

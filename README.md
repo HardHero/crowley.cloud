@@ -5,8 +5,8 @@ This playbook is for my personal web server.
 # Building the Server
 
 First Time
-aws cloudformation create-stack --stack-name crowley-cloud --template-body file://crowleycloud.yml --capabilities CAPABILITY_NAMED_IAM
 
+aws cloudformation create-stack --stack-name crowley-cloud --template-body file://crowleycloud.yml --capabilities CAPABILITY_NAMED_IAM
 Update
 aws cloudformation update-stack --stack-name crowley-cloud --template-body file://crowleycloud.yml --capabilities CAPABILITY_NAMED_IAM
 

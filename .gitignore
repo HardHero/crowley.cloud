@@ -4,5 +4,6 @@
 .kitchen.local.yml
 .librarian/
 *.lock
+site.retry
 tmp/
 Gemfile.lock

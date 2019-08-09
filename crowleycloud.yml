@@ -1,15 +1,25 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Crowley.cloud Cloudformation Template
+Parameters:
+  ElasticIP:
+    Description: ParameterDescription
+    Type: String
+    Default: ParameterDefault
 Resources:
   crowleycloud:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-00e744be929837e6e
+      ImageId: ami-02eac2c0129f6376b
       InstanceType: t2.micro
       KeyName: crowley.cloud
       IamInstanceProfile: !Ref crowleycloudiaminstanceprofile
       SecurityGroupIds: 
         - !GetAtt crowleycloudsecuritygroup.GroupId
+      UserData:
+        !Base64 |
+          #!bin/bash -x
+          sudo yum -y update
+          sudo yum -y install python
   crowleycloudsecuritygroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -44,10 +54,9 @@ Resources:
   crowleycloudEIPAssociation:
     Type: AWS::EC2::EIPAssociation
     Properties:
-      EIP: "34.193.75.126"
+      EIP: !Ref ElasticIP
       InstanceId: !Ref crowleycloud
   crowleycloudiaminstanceprofile:
-    DependsOn: crowleycloudrole
     Type: AWS::IAM::InstanceProfile
     Properties: 
       Path: "/"
@@ -78,8 +87,12 @@ Resources:
           - 
             Effect: "Allow"
             Action: "s3:*"
-            Resource: !GetAtt crowleycloudbucket.Arn
+            Resource: 
+              - !GetAtt crowleycloudbucket.Arn
+              - !Join [ '/', [ !GetAtt crowleycloudbucket.Arn, '*' ] ]
       Roles: 
         - !Ref crowleycloudrole
   crowleycloudbucket:
     Type: AWS::S3::Bucket
+    Properties:
+      BucketName: crowley.cloud

@@ -1,14 +1,9 @@
 # file: roles/crowley.cloud/tasks/main.yml
 ---
 - name: Install packages(git,curl)
-  apt:
-    name: "{{item}}"
+  package:
+    name: ['curl', 'git', 'awscli', 'vim']
     state: present
-  with_items:
-    - curl
-    - git
-    - language-pack-en
-    - awscli
 - name: Install boto for s3 sync
   pip:
     name: boto
@@ -21,7 +16,9 @@
 - name: add healthcheck.html
   template:
     src: templates/healthcheck.html.j2
-    dest: "{{crowley_cloud_html_dir}}/healthcheck.html "
+    dest: "{{crowley_cloud_html_dir}}/healthcheck.html"
     owner: nginx
     group: nginx
     mode: 0644
+- name: get that cv
+  import_tasks: 'cv.yml'
