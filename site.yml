@@ -14,4 +14,4 @@
     certbot_create_standalone_stop_services:
       - nginx
   roles:
-    - roles/crowley.cloud
+    - crowley.cloud
