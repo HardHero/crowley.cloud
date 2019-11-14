@@ -33,13 +33,15 @@ pipeline {
             }
         }
         stage('wait for server to come up'){
-            script{
-                timeout(5) {
-                    waitUntil {
-                    script {
-                        def r = sh script: 'wget -q https://crowley.cloud -O /dev/null', returnStatus: true
-                        return (r == 0);
-                    }
+            steps{
+                script{
+                    timeout(5) {
+                        waitUntil {
+                        script {
+                            def r = sh script: 'wget -q https://crowley.cloud -O /dev/null', returnStatus: true
+                            return (r == 0);
+                        }
+                        }
                     }
                 }
             }
