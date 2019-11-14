@@ -34,7 +34,7 @@ pipeline {
         stage('wait for server to come up'){
             steps{
                 script{
-                    timeout(5) {
+                    timeout(60) {
                         waitUntil {
                         script {
                             def r = sh script: 'wget -q https://crowley.cloud -O /dev/null', returnStatus: true

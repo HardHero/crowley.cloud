@@ -24,8 +24,8 @@
         template: "{{ nginx_vhost_template }}"
         filename: "crowley_cloud.conf"
         extra_parameters: |
-          ssl_certificate     /etc/letsencrypt/live/crowley.cloud-certbot/fullchain.pem;
-          ssl_certificate_key /etc/letsencrypt/live/crowley.cloud-certbot/privkey.pem;
+          ssl_certificate     /etc/letsencrypt/live/crowley.cloud/fullchain.pem;
+          ssl_certificate_key /etc/letsencrypt/live/crowley.cloud/privkey.pem;
           ssl_protocols       TLSv1.1 TLSv1.2;
           ssl_ciphers         HIGH:!aNULL:!MD5;
   roles:
