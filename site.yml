@@ -31,6 +31,6 @@
   roles:
     - geerlingguy.repo-epel
     - geerlingguy.pip
-    - geerlingguy.certbot
-    - geerlingguy.nginx
     - roles/crowley.cloud
+    - geerlingguy.nginx    
+    - geerlingguy.certbot
