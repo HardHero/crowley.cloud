@@ -1,6 +1,6 @@
 ---
 - name: move web to server
-  copy:
+  syncchronize:
     dest: /var/www/html/crowley.cloud/html/
     src: files/www/
     mode: 0755
