@@ -19,8 +19,9 @@ pipeline {
             }
         }
         stage('config server'){
-            sleep(60)
+            
             steps{
+                sleep(60)
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
                     playbook: 'site.yml',
