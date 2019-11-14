@@ -20,6 +20,9 @@ pipeline {
         }
         stage('config server'){
             steps{
+                sleep{
+                    time(60)
+                }
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
                     playbook: 'site.yml',
@@ -27,6 +30,18 @@ pipeline {
                         DOMAIN: "${DOMAIN}",
                         ELASTIC_IP: [value: "${ELASTIC_IP}", hidden: true]
                 ])
+            }
+        }
+        stage('wait for server to come up'){
+            script{
+                timeout(5) {
+                    waitUntil {
+                    script {
+                        def r = sh script: 'wget -q https://crowley.cloud -O /dev/null', returnStatus: true
+                        return (r == 0);
+                    }
+                    }
+                }
             }
         }
     }
