@@ -13,6 +13,10 @@
       - email: 'andrewcr330@gmail.com'
         domains:
           - crowley.cloud
+    certbot_create_standalone_stop_services:
+      - nginx
+    nginx_service_state: stopped
+    nginx_service_enabled: yes
     nginx_vhosts:
       - listen: "443 ssl http2"
         server_name: "crowley.cloud"
@@ -29,6 +33,6 @@
   roles:
     - geerlingguy.repo-epel
     - geerlingguy.pip
+
     - geerlingguy.certbot
-    - geerlingguy.nginx
     - roles/crowley.cloud
