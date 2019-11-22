@@ -1,8 +1,9 @@
 ---
 - name: move web to server
-  synchronize:
-    dest: /var/www/html/crowley.cloud/html/
+  synchronize: 
+    dest: "{{crowley_cloud_html_dir}}"
     src: files/www/
+    compress: no
 - name: create crowley.cloud html directory
   file:
     path: "{{crowley_cloud_html_dir}}"
