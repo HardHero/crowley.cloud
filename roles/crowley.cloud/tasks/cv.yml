@@ -3,4 +3,10 @@
   synchronize:
     dest: /var/www/html/crowley.cloud/html/
     src: files/www/
-    mode: 0755
+- name: create crowley.cloud html directory
+  file:
+    path: "{{crowley_cloud_html_dir}}"
+    state: directory
+    owner: nginx
+    group: nginxa
+    recurse: yes
