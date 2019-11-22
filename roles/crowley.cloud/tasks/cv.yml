@@ -4,10 +4,15 @@
     dest: "{{crowley_cloud_html_dir}}"
     src: files/www/
     compress: no
-- name: create crowley.cloud html directory
+- name: check permissions
   file:
     path: "{{crowley_cloud_html_dir}}"
     state: directory
     owner: nginx
     group: nginx
+    mode: 0775
     recurse: yes
+- name: nginx started
+  service:
+    name: nginx
+    state: started

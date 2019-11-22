@@ -8,3 +8,6 @@
     # - geerlingguy.certbot
     # - geerlingguy.nginx
     - roles/crowley.cloud
+  tasks:
+    - name: Flush handlers in case any configs have changed.
+      meta: flush_handlers
