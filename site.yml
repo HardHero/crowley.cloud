@@ -3,6 +3,8 @@
 - hosts: all
   become: yes
   vars:
+    certbot_create_standalone_stop_services:
+      - nginx
     certbot_create_if_missing: true
     certbot_create_method: standalone
     certbot_auto_renew: true
