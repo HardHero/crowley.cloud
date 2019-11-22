@@ -8,5 +8,5 @@
     path: "{{crowley_cloud_html_dir}}"
     state: directory
     owner: nginx
-    group: nginxa
+    group: nginx
     recurse: yes
