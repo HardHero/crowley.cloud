@@ -13,8 +13,6 @@
       - email: 'andrewcr330@gmail.com'
         domains:
           - crowley.cloud
-    certbot_create_standalone_stop_services:
-      - nginx
     nginx_service_state: stopped
     nginx_service_enabled: yes
     nginx_vhosts:
