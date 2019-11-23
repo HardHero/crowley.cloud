@@ -31,19 +31,5 @@ pipeline {
                 ])
             }
         }
-        stage('wait for server to come up'){
-            steps{
-                script{
-                    timeout(1000) {
-                        waitUntil {
-                        script {
-                            def r = sh script: 'wget -q https://crowley.cloud -O /dev/null', returnStatus: true
-                            return (r == 0);
-                        }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
