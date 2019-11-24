@@ -13,7 +13,7 @@ aws cloudformation update-stack --stack-name crowley-cloud --template-body file:
 # Usage
 1.  Change `hosts` to match server
 2.  Run playboook `ansible-playbook site.yml -i hosts`
-3. Do this because I can't automate it: https://certbot.eff.org/#ubuntuxenial-nginx
+3.  Get that https cert: https://certbot.eff.org/lets-encrypt/centosrhel7-nginx.html
 
 ## Issues
 

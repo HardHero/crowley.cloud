@@ -27,5 +27,12 @@
     owner: nginx
     group: nginx
     mode: 0644
+- name: add nginx conf
+  copy:
+    src: default.conf
+    dest: /etc/nginx/default.conf
+    owner: root
+    group: root
+    force: no
 - name: get that cv
   import_tasks: 'cv.yml'
