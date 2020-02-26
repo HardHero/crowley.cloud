@@ -7,11 +7,9 @@
 - name: Install boto for s3 sync
   pip:
     name: boto
-  notify:
-    - stop nginx
 - name: create crowley.cloud html directory
   file:
-    path: "{{crowley_cloud_html_dir}}"
+    path: /var/www/crowley.cloud/html
     state: directory
     owner: nginx
     group: nginx
@@ -22,7 +20,7 @@
     nginx_vhosts:
       - listen: "443 ssl http2"
         server_name: "certbot-test.servercheck.in"
-        root: "{{crowley_cloud_html_dir}}"
+        root: /var/www/crowley.cloud/html
         index: "index index.html index.htm"
         state: "present"
         template: "{{ nginx_vhost_template }}"
@@ -35,7 +33,7 @@
 - name: add healthcheck.html
   template:
     src: templates/healthcheck.html.j2
-    dest: "{{crowley_cloud_html_dir}}/healthcheck.html"
+    dest: "/var/www/crowley.cloud/html/healthcheck.html"
     owner: nginx
     group: nginx
     mode: 0644
