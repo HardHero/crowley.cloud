@@ -15,7 +15,7 @@
     group: nginx
 - name: install nginx
   import_role:
-    name: roles/nginxinc.nginx
+    name: nginxinc.nginx
   vars:
     nginx_vhosts:
       - listen: "443 ssl http2"

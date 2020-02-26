@@ -2,4 +2,4 @@
 - src: geerlingguy.repo-epel
 - src: geerlingguy.pip
 - src: geerlingguy.certbot
-- src: geerlingguy.nginx
+- src: nginxinc.nginx
