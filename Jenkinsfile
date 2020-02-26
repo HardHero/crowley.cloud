@@ -21,6 +21,7 @@ pipeline {
         stage('config server'){
             
             steps{
+                sh 'ansible-galaxy role install -f -p roles -r requirements.yml'
                 sleep(60)
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
