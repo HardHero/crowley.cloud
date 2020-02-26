@@ -1,18 +1,12 @@
 ---
+# - name: Add conf
+#   template:
+#     src: templates/crowley.cloud.conf.j2
+#     dest: "/etc/nginx/conf.d/crowley.cloud.conf"
+#     owner: nginx
+#     group: nginx
+#     mode: 0644
 - name: move web to server
-  synchronize: 
-    dest: "/usr/share/nginx/html/"
-    src: files/www/
-    compress: no
-- name: check permissions
-  file:
-    path: "{{crowley_cloud_html_dir}}"
-    state: directory
-    owner: nginx
-    group: nginx
-    mode: 0775
-    recurse: yes
-- name: nginx started
-  service:
-    name: nginx
-    state: started
+  copy:
+      dest: /var/www/html/crowley.cloud/html/
+      src: files/www/
