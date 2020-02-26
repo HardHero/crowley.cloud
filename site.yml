@@ -3,4 +3,9 @@
 - hosts: all
   become: yes
   roles:
-    - crowley.cloud
+    - geerlingguy.repo-epel
+    - geerlingguy.pip
+    - roles/crowley.cloud
+  tasks:
+    - name: Flush handlers in case any configs have changed.
+      meta: flush_handlers

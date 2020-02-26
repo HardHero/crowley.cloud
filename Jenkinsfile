@@ -3,13 +3,14 @@ pipeline {
     parameters{
         string(name:'ELASTIC_IP', defaultValue: '', description: 'An AWS Elastic IP')
         string(name:'DOMAIN', defaultValue: 'crowley.cloud')
+        string(name:'STACK_NAME', defaultValue: 'crowley-cloud')
     }
     stages {
         stage('deploy stack'){
             steps{
                 withAWS(region:'us-east-1', profile:'default') {
                     cfnUpdate(
-                        stack:'crowley-cloud', 
+                        stack:"${STACK_NAME}", 
                         file:'crowleycloud.yml', 
                         params:["ElasticIP=${ELASTIC_IP}"],
                     )
@@ -18,7 +19,9 @@ pipeline {
             }
         }
         stage('config server'){
+            
             steps{
+                sleep(60)
                 ansiblePlaybook(
                     inventory: 'hosts.ini',
                     playbook: 'site.yml',

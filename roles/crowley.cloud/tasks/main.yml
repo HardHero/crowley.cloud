@@ -1,0 +1,39 @@
+# file: roles/crowley.cloud/tasks/main.yml
+---
+- name: Install packages(git,curl)
+  yum:
+    name: ['curl', 'git', 'awscli', 'vim']
+    state: present
+    lock_timeout: 180
+- name: import nginx
+  import_role:
+    name: geerlingguy.nginx
+  vars:
+    nginx_service_state: started
+    nginx_service_enabled: yes
+    nginx_remove_default_vhost: true
+- name: Install boto for s3 sync
+  pip:
+    name: boto
+- name: create crowley.cloud html directory
+  file:
+    path: "{{crowley_cloud_html_dir}}"
+    state: directory
+    owner: nginx
+    group: nginx
+- name: add healthcheck.html
+  template:
+    src: templates/healthcheck.html.j2
+    dest: "{{crowley_cloud_html_dir}}/healthcheck.html"
+    owner: nginx
+    group: nginx
+    mode: 0644
+- name: add default conf
+  copy:
+    src: default.conf
+    dest: /etc/nginx/conf.d/default.conf
+    owner: root
+    group: root
+    force: yes
+- name: get that cv
+  import_tasks: 'cv.yml'

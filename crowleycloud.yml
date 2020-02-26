@@ -20,6 +20,7 @@ Resources:
           #!bin/bash -x
           sudo yum -y update
           sudo yum -y install python
+          echo ALLDONE
   crowleycloudsecuritygroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
