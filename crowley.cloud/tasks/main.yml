@@ -7,6 +7,8 @@
 - name: Install boto for s3 sync
   pip:
     name: boto
+  notify:
+    - stop nginx
 - name: create crowley.cloud html directory
   file:
     path: "{{crowley_cloud_html_dir}}"
