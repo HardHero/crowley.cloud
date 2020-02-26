@@ -1,4 +1,4 @@
 # file: roles/crowley.cloud/vars/main.yml
 ---
-  crowley_cloud_html_dir: /var/www/crowley.cloud/html
-  crowley_dir: /opt/crowley/
+crowley_cloud_html_dir: /var/www/crowley.cloud/html
+crowley_dir: /opt/crowley/
